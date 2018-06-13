@@ -74,17 +74,54 @@ function preprocessing(nodes, suppliers, consumers, demand)
 end
 
 
-function printSolution(m, x)
+function printSolution(m, suppliers, nodes, edgeExists)
 
+    x = m[:x]
+    T = 1:length(nodes)
     toPrint = "$(getobjectivevalue(m))\n"
 
-    if !onlyObj
-        for s in suppliers, t in T, i in nodes, j in nodes
-            if edgeExists[s, i, j] && (getvalue(x[i, j, s, t]) > 0.9)
-                toPrint *= "$s $i $j\n"
-            end
+    
+    for s in suppliers, t in T, i in nodes, j in nodes
+        if edgeExists[s, i, j] && (getvalue(x[i, j, s, t]) > 0.9)
+            toPrint *= "$s $i $j\n"
         end
     end
 
+
     println(toPrint)
+end
+
+
+function separateZerosOnes(m)
+    x = m[:x]
+    y = m[:y]
+    z = m[:z]
+
+    varOnes, varZeros = [], []
+    
+    for (a, b, c, d) in keys(x)
+        if getvalue(x[a, b, c, d]) > 0.5
+            push!(varOnes, x[a, b, c, d])
+        else
+            push!(varZeros, x[a, b, c, d])
+        end
+    end
+    
+    for (a, b) in keys(y)
+        if getvalue(y[a, b]) > 0.5
+            push!(varOnes, y[a, b])
+        else
+            push!(varZeros, y[a, b])
+        end 
+    end
+    
+    for (a, b, c) in keys(z)
+        if getvalue(z[a, b, c]) > 0.5
+            push!(varOnes, z[a, b, c])
+        else
+            push!(varZeros, z[a, b, c])
+        end
+    end
+    
+    varZeros, varOnes
 end
