@@ -1,0 +1,881 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{AMSI-Optimise 2018}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    This Notebook will guide us through an example of using matheuristics to
+solve a particular Mixed Integer Linear Programming model. We begin by
+implementing the model and then we explore some ideas related to
+\href{https://link.springer.com/article/10.1007/s10107-003-0395-5}{Local
+Branching} and
+\href{https://link.springer.com/article/10.1007/s10732-014-9266-x}{Proximity
+Search}. Although we are focusing on a particular example, note that the
+ideas are generic enough to be applied to any optimisation problem
+defined as \(Min\{c^T x: Ax \leq b, x \in \{0, 1\}^n\}\).
+
+Without going into much detail about the model, it has the following
+input parameters:
+
+\begin{itemize}
+\tightlist
+\item
+  \(C\): a set of consumers.
+\item
+  \(S\): a set of suppliers.
+\item
+  \(w\): a collaborative distribution centre (cross-dock).
+\item
+  \(N = S \cup C \cup \{w\}\): set of nodes in the network.
+\item
+  \(T\): a set of time periods.
+\item
+  \(d_{is}\): 1 if consumer \(i\) has demand from supplier \(s\), 0
+  otherwise.
+\item
+  \(c_{ij}\): cost of going from node \(i\) to node \(j\).
+\end{itemize}
+
+Also, the following binary variables were defined:
+
+\begin{itemize}
+\tightlist
+\item
+  \(x_{ijst}\): indicates whether the truck from supplier \(s\) goes
+  from \(i\) to \(j\) at time period \(t\).
+\item
+  \(y_{is}\): indicates whether consumer \(i\) is visited by supplier
+  \(s\).
+\item
+  \(z_{iss'}\): indicates whether the demand of consumer \(i\) from
+  supplier \(s\) is satisfied by the truck from supplier \(s'\).
+\end{itemize}
+
+Thereby, we can define the following model for minimising the total
+distribution costs.
+
+\(\displaystyle \min \sum_{i \in N} \sum_{j \in N} \sum_{s \in S} \sum_{t \in T} c_{ij} x_{ijst}\)
+
+Subject to:
+
+(We cannot leave any suppliers if \(t \neq 1\))
+
+\(\displaystyle x_{sjst} = 0, \quad j \in N, s \in S, t \in T, t \neq 1,\)
+
+(We cannot leave nodes that are not suppliers at \(t = 1\))
+
+\(\displaystyle x_{ijs1} = 0, \quad i \in N \backslash \{s\}, j \in N, s \in S,\)
+
+(If we reach a consumer or the cross-dock at time period \(t\), we leave
+it at \(t+1\))
+
+\(\displaystyle \sum_{i \in N} x_{ijst} = \sum_{i \in N} x_{jis,t+1}, \quad j \in C \cup \{w\}, s \in S, t \in T,\)
+
+(Each supplier visits a consumer at most once)
+
+\(\displaystyle \sum_{i \in N} \sum_{t \in T} x_{ijst} \leq 1, \quad j \in N, s \in S,\)
+
+(The demand must be served by one of the suppliers)
+
+\(\displaystyle \sum_{j \in N} \sum_{t \in T} x_{jist} \geq d_{is} - \sum_{s' \in S, s' \neq s} z_{iss'}, \quad i \in C, s \in S,\)
+
+(A supplier \(s'\) may respond to a demand for supplier \(s \neq s'\) if
+the trucks from \(s\) and \(s'\) visit the cross-dock and \(s'\) visits
+the consumer after visiting the cross-dock)
+
+\(\displaystyle 3z_{iss'} \leq \sum_{j \in C \cup \{s\}} \sum_{t \in T} x_{jwst} + \sum_{j \in C \cup \{s\}} \sum_{t \in T} x_{jws't} + y_{is'}, \quad i \in C, s \in S, s' \in S, s \neq s',\)
+
+(Whether a consumer is visited by a truck after the truck has visited
+the cross-dock (\(y_{is}\)))
+
+\(\displaystyle \sum_{j \in C\cup \{s\}} \sum_{t \in T} t\ x_{jist} - \sum_{j \in C \cup \{s\} \cup \{w\}} \sum_{t \in T} t\ x_{jwst} \geq |T| (y_{is}-1), \quad i \in N, s \in S,\)
+
+(Ensuring that if a consumer \(i\) is not visited by the truck from
+\(s\) than \(y_{is}\) = 0)
+
+\(\displaystyle y_{is} \leq \sum_{j \in C \cup \{s\}} \sum_{t \in T} x_{jist}, \quad i \in C, s \in S.\)
+
+We need some data to play with. We will be using the problem described
+in file \href{data/data1.csv}{data1.csv}. The following figure shows the
+positions of suppliers (nodes 1 and 2, in red), consumers (nodes 3 to
+12, in green) and the cross-dock (node 13, in blue).
+
+Since we will be using JuMP/Julia to implement the model and GLPK as a
+MIP solver, we need to load the correspondent packages. Also, we are
+including some functions that will help us manipulate the data so we can
+focus on the matheuristics related aspects.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k}{using} \PY{n}{JuMP}
+        \PY{k}{using} \PY{n}{GLPKMathProgInterface}
+        \PY{n}{include}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{s}\PY{l+s}{r}\PY{l+s}{c}\PY{l+s}{/}\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{d}\PY{l+s}{D}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{.}\PY{l+s}{j}\PY{l+s}{l}\PY{l+s}{\PYZdq{}}\PY{p}{)}\PY{p}{;} \PY{c}{\PYZsh{} Import function readData, used for reading input parameters, and others}
+\end{Verbatim}
+
+
+    In the following, we have a function that implements the model as
+presented previously. It returns the model and the \(x_{ijst}\),
+\(y_{is}\), \(z_{iss'}\) variables.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{function} \PY{n}{defineModel}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{nodes}\PY{p}{,} \PY{n}{suppliers}\PY{p}{,} \PY{n}{consumers}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{edgeExists}\PY{p}{)}
+        
+            \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{length}\PY{p}{(}\PY{n}{nodes}\PY{p}{)}  \PY{c}{\PYZsh{} Possible legs}
+        
+            \PY{n+nd}{@variable}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{o}{=}\PY{n}{nodes}\PY{p}{,} \PY{n}{j}\PY{o}{=}\PY{n}{nodes}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{n}{suppliers}\PY{p}{,} \PY{n}{t}\PY{o}{=}\PY{n}{T}\PY{p}{;} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{Bin}\PY{p}{)}
+            \PY{n+nd}{@variable}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{z}\PY{p}{[}\PY{n}{i}\PY{o}{=}\PY{n}{consumers}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{n}{suppliers}\PY{p}{,} \PY{n}{sBar}\PY{o}{=}\PY{n}{suppliers}\PY{p}{;} \PY{n}{s} \PY{o}{!=} \PY{n}{sBar}\PY{p}{]}\PY{p}{,} \PY{n}{Bin}\PY{p}{)}
+            \PY{n+nd}{@variable}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{o}{=}\PY{n}{consumers}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{n}{suppliers}\PY{p}{]}\PY{p}{,} \PY{n}{Bin}\PY{p}{)}
+        
+            \PY{n+nd}{@objective}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{Min}\PY{p}{,} \PY{n}{sum}\PY{p}{(}\PY{n}{cost}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{t}\PY{p}{]}
+                \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} \PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} \PY{n}{s} \PY{k+kp}{in} \PY{n}{suppliers}\PY{p}{,} \PY{n}{t} \PY{k+kp}{in} \PY{n}{T} \PY{k}{if} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+            \PY{c}{\PYZsh{} We only leave suppliers at the first leg:}
+            \PY{n+nd}{@constraint}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{p}{[}\PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,}
+                            \PY{n}{s} \PY{k+kp}{in} \PY{n}{suppliers}\PY{p}{,}
+                            \PY{n}{t} \PY{k+kp}{in} \PY{n}{T}\PY{p}{;} \PY{p}{(}\PY{n}{t} \PY{o}{!=} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}\PYZam{}} \PY{p}{(}\PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{s}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+                            \PY{n}{x}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{t}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}
+        
+            \PY{c}{\PYZsh{} We cannot leave any other node but suppliers in the first leg:}
+            \PY{n+nd}{@constraint}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{p}{[}\PY{n}{i} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,}
+                            \PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,}
+                            \PY{n}{s} \PY{k+kp}{in} \PY{n}{suppliers}\PY{p}{;} \PY{p}{(}\PY{n}{i} \PY{k+kp}{in} \PY{n}{suppliers}\PY{p}{)} \PY{o}{==} \PY{k+kc}{false} \PY{o}{\PYZam{}\PYZam{}} \PY{p}{(}\PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+                            \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}
+        
+            \PY{c}{\PYZsh{} Flow balance constraints:}
+            \PY{n+nd}{@constraint}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{p}{[}\PY{n}{s} \PY{k+kp}{in} \PY{n}{suppliers}\PY{p}{,} \PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} \PY{n}{t} \PY{k+kp}{in} \PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{o}{:}\PY{k}{end}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{;} \PY{n}{j} \PY{o}{!=} \PY{n}{s}\PY{p}{]}\PY{p}{,}
+            \PY{n}{sum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{t}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{nodes} \PY{k}{if} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{==}
+            \PY{n}{sum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{t}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{nodes} \PY{k}{if} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+            \PY{c}{\PYZsh{} We only visit each node at most once with each supplier}
+            \PY{k}{for} \PY{n}{s} \PY{k+kp}{in} \PY{n}{suppliers}\PY{p}{,} \PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}
+                \PY{n+nd}{@constraint}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{sum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{t}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} \PY{n}{t} \PY{k+kp}{in} \PY{n}{T} \PY{k}{if} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}=} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{k}{end}
+        
+            \PY{c}{\PYZsh{} Demand constraints:}
+            \PY{n+nd}{@constraint}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{p}{[}\PY{n}{i} \PY{k+kp}{in} \PY{n}{consumers}\PY{p}{,} \PY{n}{s} \PY{k+kp}{in} \PY{n}{suppliers}\PY{p}{]}\PY{p}{,}
+                \PY{n}{sum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{t}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} \PY{n}{t} \PY{k+kp}{in} \PY{n}{T} \PY{k}{if} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}=}
+                \PY{n}{demand}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{s}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{sum}\PY{p}{(}\PY{n}{z}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{sBar}\PY{p}{]} \PY{k}{for} \PY{n}{sBar} \PY{k+kp}{in} \PY{n}{suppliers} \PY{k}{if} \PY{n}{s} \PY{o}{!=} \PY{n}{sBar}\PY{p}{)}\PY{p}{)}
+        
+            \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{consumers}\PY{p}{,} \PY{n}{s} \PY{k+kp}{in} \PY{n}{suppliers}
+                \PY{n+nd}{@expression}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{sVisitsCD}\PY{p}{,} \PY{n}{sum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{t}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} \PY{n}{t} \PY{k+kp}{in} \PY{n}{T} \PY{k}{if} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{w}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+                \PY{k}{for} \PY{n}{sBar} \PY{k+kp}{in} \PY{n}{suppliers}
+                    \PY{k}{if} \PY{n}{s} \PY{o}{!=} \PY{n}{sBar}
+                        \PY{n+nd}{@expression}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{sBarVisitsCD}\PY{p}{,} 
+                                    \PY{n}{sum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{sBar}\PY{p}{,} \PY{n}{t}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} \PY{n}{t} \PY{k+kp}{in} \PY{n}{T} \PY{k}{if} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{sBar}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{w}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                        \PY{n+nd}{@constraint}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{z}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{sBar}\PY{p}{]} \PY{o}{\PYZlt{}=} \PY{n}{sVisitsCD} \PY{o}{+} \PY{n}{sBarVisitsCD} \PY{o}{+} \PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{sBar}\PY{p}{]}\PY{p}{)}
+                    \PY{k}{end}
+                \PY{k}{end}
+            \PY{k}{end}
+        
+            \PY{n+nd}{@constraint}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{p}{[}\PY{n}{i} \PY{k+kp}{in} \PY{n}{consumers}\PY{p}{,} \PY{n}{s} \PY{k+kp}{in} \PY{n}{suppliers}\PY{p}{]}\PY{p}{,}
+                \PY{n}{sum}\PY{p}{(}\PY{n}{t}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{t}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} \PY{n}{t} \PY{k+kp}{in} \PY{n}{T} \PY{k}{if} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}}
+                \PY{n}{sum}\PY{p}{(}\PY{n}{t}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{t}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} \PY{n}{t} \PY{k+kp}{in} \PY{n}{T} \PY{k}{if} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{w}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}=} \PY{n}{length}\PY{p}{(}\PY{n}{T}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{s}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n+nd}{@constraint}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{p}{[}\PY{n}{i} \PY{k+kp}{in} \PY{n}{consumers}\PY{p}{,} \PY{n}{s} \PY{k+kp}{in} \PY{n}{suppliers}\PY{p}{]}\PY{p}{,}
+                \PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{s}\PY{p}{]} \PY{o}{\PYZlt{}=} \PY{n}{sum}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{t}\PY{p}{]} \PY{k}{for} \PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} \PY{n}{t} \PY{k+kp}{in} \PY{n}{T} \PY{k}{if} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{m}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z}
+        \PY{k}{end}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} defineModel (generic function with 1 method)
+\end{Verbatim}
+            
+    Now, we are prepared to use GLPK/JuMP to solve our model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{filename} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{d}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{/}\PY{l+s}{d}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{a}\PY{l+s}{1}\PY{l+s}{.}\PY{l+s}{c}\PY{l+s}{s}\PY{l+s}{v}\PY{l+s}{\PYZdq{}}  \PY{c}{\PYZsh{} The file with the input data}
+        
+        \PY{c}{\PYZsh{} We read the input data with the readData function}
+        \PY{n}{suppliers}\PY{p}{,} \PY{n}{consumers}\PY{p}{,} \PY{n}{warehouse}\PY{p}{,} \PY{n}{nodes}\PY{p}{,} \PY{n}{posX}\PY{p}{,} \PY{n}{posY}\PY{p}{,} \PY{n}{cost}\PY{p}{,} \PY{n}{demand} \PY{o}{=} \PY{n}{readData}\PY{p}{(}\PY{n}{filename}\PY{p}{)}
+        \PY{n}{w} \PY{o}{=} \PY{n}{warehouse}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{c}{\PYZsh{} We need some preprocessing of the input parameters.}
+        \PY{c}{\PYZsh{} After preprocessing we get the edgeExists map, }
+        \PY{c}{\PYZsh{} which tell us if a particular supplier, s, can traverse edge (i, j)}
+        \PY{n}{nodes}\PY{p}{,} \PY{n}{consumers}\PY{p}{,} \PY{n}{suppliers}\PY{p}{,} \PY{n}{edgeExists} \PY{o}{=} \PY{n}{preprocessing}\PY{p}{(}\PY{n}{nodes}\PY{p}{,} \PY{n}{suppliers}\PY{p}{,} \PY{n}{consumers}\PY{p}{,} \PY{n}{demand}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{} Time Limit (tm\PYZus{}lim) is in mili\PYZhy{}seconds:}
+        \PY{n}{m} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{n}{solver}\PY{o}{=}\PY{n}{GLPKSolverMIP}\PY{p}{(}\PY{n}{tm\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{20000}\PY{p}{,} \PY{n}{msg\PYZus{}lev}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{m}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z} \PY{o}{=} \PY{n}{defineModel}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{nodes}\PY{p}{,} \PY{n}{suppliers}\PY{p}{,} \PY{n}{consumers}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{edgeExists}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{} Suppress warnings because we like to live dangerously:}
+        \PY{n}{solve}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppress\PYZus{}warnings}\PY{o}{=}\PY{k+kc}{true}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+      0: obj =   0.000000000e+00 inf =   1.300e+01 (13)
+    233: obj =   5.848602719e+02 inf =   1.662e-15 (0)
+*   500: obj =   2.403272906e+02 inf =   2.721e-16 (759) 1
+*   772: obj =   1.744989748e+02 inf =   0.000e+00 (0) 1
++   772: mip =     not found yet >=              -inf        (1; 0)
++  5239: >>>>>   4.896222297e+02 >=   2.427393813e+02  50.4\% (162; 4)
++ 11853: >>>>>   4.729352578e+02 >=   2.603219018e+02  45.0\% (255; 145)
++ 17674: mip =   4.729352578e+02 >=   2.690435296e+02  43.1\% (429; 183)
++ 24593: mip =   4.729352578e+02 >=   2.773211854e+02  41.4\% (616; 200)
++ 27499: mip =   4.729352578e+02 >=   2.809593647e+02  40.6\% (685; 208)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} :UserLimit
+\end{Verbatim}
+            
+    The \emph{solve} method give us a status for the optimisation procedure.
+If we want the solution itself, we can use the \emph{printSolution}
+method from the \emph{readData.jl} file.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{printSolution}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppliers}\PY{p}{,} \PY{n}{nodes}\PY{p}{,} \PY{n}{edgeExists}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+579.1339215717855
+1 1 13
+1 13 3
+1 3 6
+1 6 7
+1 7 1
+2 2 13
+2 13 10
+2 10 8
+2 8 12
+2 12 11
+2 11 9
+2 9 4
+2 4 5
+2 5 2
+
+
+    \end{Verbatim}
+
+    The solution looks like the following (note that you might get a
+different solution when running in a different hardware. In that case,
+the figure will not reflect the solution).
+
+    \section{\texorpdfstring{\href{https://link.springer.com/article/10.1007/s10107-003-0395-5}{Local
+branching}}{Local branching}}\label{local-branching}
+
+Now, let us explore some ideas from \emph{Local Branching} to solve our
+problem. First, we need an initial feasible solution, which we will get
+by trying to solve the model for a limited time. Then, we will add a
+constraint of the following type and reoptimise.
+
+\[\sum_{\bar{x} \in \mathcal{X}^-} \bar{x} + \sum_{\bar{x} \in \mathcal{X}^+} (1 - \bar{x}) \leq k,\]
+
+in which \(\mathcal{X}^ -\) (\(\mathcal{X}^+\)) is the set of all
+variables in the problem that have a value of zero (one) in the first
+optimisation and \(k\) is the "radius" of the neighbourhood.
+
+For this, add the constraint described above after the first call of the
+\emph{solve} method. Start with \(k=10\) and check how different values
+affect the solution.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{m} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{n}{solver}\PY{o}{=}\PY{n}{GLPKSolverMIP}\PY{p}{(}\PY{n}{tm\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{,} \PY{n}{msg\PYZus{}lev}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{m}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z} \PY{o}{=} \PY{n}{defineModel}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{nodes}\PY{p}{,} \PY{n}{suppliers}\PY{p}{,} \PY{n}{consumers}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{edgeExists}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{} This is the first optimisation:}
+        \PY{n}{solve}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppress\PYZus{}warnings}\PY{o}{=}\PY{k+kc}{true}\PY{p}{)}
+        
+        \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{I}\PY{l+s}{n}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{a}\PY{l+s}{l}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s+si}{\PYZdl{}}\PY{p}{(}\PY{n}{getobjectivevalue}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)} 
+        
+        \PY{c}{\PYZsh{} We can use the separateZerosOnes function (readData.jl)}
+        \PY{n}{varZeros}\PY{p}{,} \PY{n}{varOnes} \PY{o}{=} \PY{n}{separateZerosOnes}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{} Add the constraint here. You can iterate over varZeros (or varOnes)}
+        \PY{c}{\PYZsh{} using \PYZdq{}for var in varZeros\PYZdq{}. The general syntax for adding a constraint is:}
+        \PY{c}{\PYZsh{} @constraint(model, expression \PYZlt{}= k)}
+        
+        \PY{n}{solve}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppress\PYZus{}warnings}\PY{o}{=}\PY{k+kc}{true}\PY{p}{)}
+        
+        \PY{n}{obj} \PY{o}{=} \PY{n}{getobjectivevalue}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+        
+        \PY{k}{if} \PY{n}{isnan}\PY{p}{(}\PY{n}{obj}\PY{p}{)}
+            \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{C}\PY{l+s}{o}\PY{l+s}{u}\PY{l+s}{l}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{n}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{d}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{ }\PY{l+s}{f}\PY{l+s}{e}\PY{l+s}{a}\PY{l+s}{s}\PY{l+s}{i}\PY{l+s}{b}\PY{l+s}{l}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{s}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{w}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{i}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{ }\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{.}\PY{l+s}{\PYZdq{}}\PY{p}{)} 
+        \PY{k}{else}
+            \PY{n}{println}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{S}\PY{l+s}{o}\PY{l+s}{l}\PY{l+s}{u}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{ }\PY{l+s}{a}\PY{l+s}{f}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{ }\PY{l+s}{r}\PY{l+s}{e}\PY{l+s}{o}\PY{l+s}{p}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{m}\PY{l+s}{i}\PY{l+s}{s}\PY{l+s}{a}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{:}\PY{l+s}{ }\PY{l+s+si}{\PYZdl{}obj}\PY{l+s}{\PYZdq{}}\PY{p}{)}    
+        \PY{k}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Initial solution 579.1339215717855
+
+Solution after reoptimisation!: 548.7311820083075
+
+    \end{Verbatim}
+
+    For some values of \(k\), the solver may not be able to find any
+feasible solution within the time limit. For handling such cases, it is
+possible to try a reoptimisation with smaller value of \(k\) in the hope
+that the resulting problem is easier to solve. Let us add this rule for
+updating \(k\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{m} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{n}{solver}\PY{o}{=}\PY{n}{GLPKSolverMIP}\PY{p}{(}\PY{n}{tm\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{,} \PY{n}{msg\PYZus{}lev}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{m}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z} \PY{o}{=} \PY{n}{defineModel}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{nodes}\PY{p}{,} \PY{n}{suppliers}\PY{p}{,} \PY{n}{consumers}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{edgeExists}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{} This is the first optimisation:}
+        \PY{n}{solve}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppress\PYZus{}warnings}\PY{o}{=}\PY{k+kc}{true}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{} Separating zeros and ones (readData.jl)}
+        \PY{n}{varZeros}\PY{p}{,} \PY{n}{varOnes} \PY{o}{=} \PY{n}{separateZerosOnes}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+        
+        \PY{n}{initialK} \PY{o}{=} \PY{l+m+mi}{25}
+        
+        \PY{n+nd}{@constraint}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{localBranchConstr}\PY{p}{,}
+                \PY{n}{sum}\PY{p}{(}\PY{n}{var} \PY{k}{for} \PY{n}{var} \PY{k+kp}{in} \PY{n}{varZeros}\PY{p}{)} \PY{o}{+} \PY{n}{sum}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{var} \PY{k}{for} \PY{n}{var} \PY{k+kp}{in} \PY{n}{varOnes}\PY{p}{)} \PY{o}{\PYZlt{}=} \PY{n}{initialK}\PY{p}{)}
+        
+        \PY{n}{solve}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppress\PYZus{}warnings}\PY{o}{=}\PY{k+kc}{true}\PY{p}{)}
+        \PY{n}{obj} \PY{o}{=} \PY{n}{getobjectivevalue}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+        
+        \PY{n+nd}{@show} \PY{n}{obj}\PY{p}{,} \PY{n}{initialK}
+        
+        \PY{n}{iter} \PY{o}{=} \PY{l+m+mi}{1}
+        
+        \PY{c}{\PYZsh{} We can use isnan method to check if a solution is available.}
+        \PY{k}{while} \PY{n}{isnan}\PY{p}{(}\PY{n}{obj}\PY{p}{)} \PY{o}{\PYZam{}\PYZam{}} \PY{n}{iter} \PY{o}{\PYZlt{}} \PY{l+m+mi}{10}
+            \PY{c}{\PYZsh{} You may add the rule for updating the initialK variable here:}
+            
+            \PY{c}{\PYZsh{} Changing the right\PYZhy{}hand side of the constraint:}
+            \PY{n}{JuMP}\PY{o}{.}\PY{n}{setRHS}\PY{p}{(}\PY{n}{localBranchConstr}\PY{p}{,} \PY{n}{initialK}\PY{p}{)} 
+            
+            \PY{n}{solve}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppress\PYZus{}warnings}\PY{o}{=}\PY{k+kc}{true}\PY{p}{)}
+            
+            \PY{n}{obj} \PY{o}{=} \PY{n}{getobjectivevalue}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+            \PY{n+nd}{@show} \PY{n}{obj}\PY{p}{,} \PY{n}{initialK}
+            
+            \PY{n}{iter} \PY{o}{+=} \PY{l+m+mi}{1}
+        \PY{k}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(obj, initialK) = (NaN, 25)
+(obj, initialK) = (NaN, 12.5)
+(obj, initialK) = (740.3881660495049, 6.25)
+
+    \end{Verbatim}
+
+    Note that if the solver is able to find an optimal solution for a
+particular neighbourhood, it is possible to increase \(k\) and
+reoptimise, hoping to find an even better solution for the problem.
+
+Besides changing the neighbourhood radius, another way to explore Local
+Branching is by changing the centre of the neighbourhood, i.e., the
+solution that we are using as a pivot for defining the neighbourhood.
+One implementation for this would be the following.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{mOriginal} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{n}{solver}\PY{o}{=}\PY{n}{GLPKSolverMIP}\PY{p}{(}\PY{n}{tm\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{,} \PY{n}{msg\PYZus{}lev}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mOriginal}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z} \PY{o}{=} \PY{n}{defineModel}\PY{p}{(}\PY{n}{mOriginal}\PY{p}{,} \PY{n}{nodes}\PY{p}{,} \PY{n}{suppliers}\PY{p}{,} \PY{n}{consumers}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{edgeExists}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{} Now we are not modifying original model, i.e., }
+         \PY{c}{\PYZsh{} the model without the local branching constraint}
+         \PY{n}{m} \PY{o}{=} \PY{n}{copy}\PY{p}{(}\PY{n}{mOriginal}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{} Printing the number of constraints for each model:}
+         \PY{n+nd}{@show} \PY{n}{MathProgBase}\PY{o}{.}\PY{n}{numlinconstr}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{,} \PY{n}{MathProgBase}\PY{o}{.}\PY{n}{numlinconstr}\PY{p}{(}\PY{n}{mOriginal}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{} Getting the initial feasible solution:}
+         \PY{n}{solve}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppress\PYZus{}warnings}\PY{o}{=}\PY{k+kc}{true}\PY{p}{)}
+         \PY{n+nd}{@show} \PY{n}{getobjectivevalue}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         \PY{n}{println}\PY{p}{(}\PY{p}{)}  \PY{c}{\PYZsh{} Just adding a new line.}
+         
+         \PY{c}{\PYZsh{} This loops defines the number of iterations:}
+         \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{2}
+             
+             \PY{c}{\PYZsh{} Saving the variables that have a value of one (readData.jl):}
+             \PY{n}{xOnes}\PY{p}{,} \PY{n}{yOnes}\PY{p}{,} \PY{n}{zOnes} \PY{o}{=} \PY{n}{getOnes}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         
+             \PY{c}{\PYZsh{} Be aware that copying the model is not efficient:}
+             \PY{n}{m} \PY{o}{=} \PY{n}{copy}\PY{p}{(}\PY{n}{mOriginal}\PY{p}{)}
+         
+             \PY{c}{\PYZsh{} Separating zeros and ones:}
+             \PY{n}{varZeros}\PY{p}{,} \PY{n}{varOnes} \PY{o}{=} \PY{n}{separateZerosOnes}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{xOnes}\PY{p}{,} \PY{n}{yOnes}\PY{p}{,} \PY{n}{zOnes}\PY{p}{)}
+             
+             \PY{c}{\PYZsh{} Adding the local branching constraint:}
+             \PY{n+nd}{@constraint}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{localBranchConstr}\PY{p}{,}
+                     \PY{n}{sum}\PY{p}{(}\PY{n}{var} \PY{k}{for} \PY{n}{var} \PY{k+kp}{in} \PY{n}{varZeros}\PY{p}{)} \PY{o}{+} \PY{n}{sum}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{var} \PY{k}{for} \PY{n}{var} \PY{k+kp}{in} \PY{n}{varOnes}\PY{p}{)} \PY{o}{\PYZlt{}=} \PY{l+m+mi}{10}\PY{p}{)}
+         
+             \PY{c}{\PYZsh{} Printing the number of constraints for each model:}
+             \PY{n+nd}{@show} \PY{n}{MathProgBase}\PY{o}{.}\PY{n}{numlinconstr}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{,} \PY{n}{MathProgBase}\PY{o}{.}\PY{n}{numlinconstr}\PY{p}{(}\PY{n}{mOriginal}\PY{p}{)}
+             
+             \PY{c}{\PYZsh{} Solving with the local branching constraint:}
+             \PY{n}{solve}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppress\PYZus{}warnings}\PY{o}{=}\PY{k+kc}{true}\PY{p}{)}
+             
+             \PY{n+nd}{@show} \PY{n}{getobjectivevalue}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+             \PY{n}{println}\PY{p}{(}\PY{p}{)}  \PY{c}{\PYZsh{} Just to adding a new line.}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(MathProgBase.numlinconstr(m), MathProgBase.numlinconstr(mOriginal)) = (900, 900)
+getobjectivevalue(m) = 579.1339215717855
+(MathProgBase.numlinconstr(m), MathProgBase.numlinconstr(mOriginal)) = (901, 900)
+getobjectivevalue(m) = 581.0173438221805
+(MathProgBase.numlinconstr(m), MathProgBase.numlinconstr(mOriginal)) = (901, 900)
+getobjectivevalue(m) = 550.6146042587021
+
+    \end{Verbatim}
+
+    Note that, without providing the previous solution to a current step,
+there is no guarantee that the current solution is not worse than the
+previous one. Also, you can combine the ideas of changing the
+neighbourhood radius and centre to build more sophisticated searching
+strategies.
+
+    \section{\texorpdfstring{\href{https://link.springer.com/article/10.1007/s10732-014-9266-x}{Proximity
+search}}{Proximity search}}\label{proximity-search}
+
+The basic algorithm of the Proximity Search begins with finding an
+initial feasible solution (\(\tilde{x}\)). Here, we will use the model
+itself for finding this initial solution, but any ad-hoc heuristics
+would be enough. Then, we need to define the cutoff tolerance
+\(\theta\), this parameter will be used in a constraint to be added to
+the model. The constraint looks like the following (assuming a
+minimisation problem).
+
+\[f(x) \leq f(\tilde{x}) - \theta.\]
+
+Before reoptimising the problem, we change its objective function to:
+
+\[Min\ \sum_{\bar{x} \in \mathcal{X}^-} \bar{x} + \sum_{\bar{x} \in \mathcal{X}^+} (1 - \bar{x}),\]
+
+in which \(\mathcal{X}^ -\) (\(\mathcal{X}^+\)) is the set of all
+variables which have a value of zero (one) in the previous optimisation
+procedure. Note that this expression is the left-hand side of the
+constraint used in Local Branching.
+
+Let us implement an iteration of the Proximity Search for our problem,
+using \(\theta = 1\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{m} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{n}{solver}\PY{o}{=}\PY{n}{GLPKSolverMIP}\PY{p}{(}\PY{n}{tm\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{,} \PY{n}{msg\PYZus{}lev}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{m}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z} \PY{o}{=} \PY{n}{defineModel}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{nodes}\PY{p}{,} \PY{n}{suppliers}\PY{p}{,} \PY{n}{consumers}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{edgeExists}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{} Initial optimisation:}
+         \PY{n}{solve}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppress\PYZus{}warnings}\PY{o}{=}\PY{k+kc}{true}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{} Since we will be changing the objective function for the solver,}
+         \PY{c}{\PYZsh{} we need to keep track of the original objective function:}
+         \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{length}\PY{p}{(}\PY{n}{nodes}\PY{p}{)}
+         \PY{n+nd}{@expression}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{objExpr}\PY{p}{,} 
+             \PY{n}{sum}\PY{p}{(}\PY{n}{cost}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{t}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} 
+                 \PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,}
+                 \PY{n}{s} \PY{k+kp}{in} \PY{n}{suppliers}\PY{p}{,}
+                 \PY{n}{t} \PY{k+kp}{in} \PY{n}{T} \PY{k}{if} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                         
+         \PY{n+nd}{@show} \PY{n}{getvalue}\PY{p}{(}\PY{n}{objExpr}\PY{p}{)}
+                         
+         \PY{n}{varZeros}\PY{p}{,} \PY{n}{varOnes} \PY{o}{=} \PY{n}{separateZerosOnes}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{} The objective function can be redefined using}
+         \PY{c}{\PYZsh{} @objective(m, Min, expression):}
+                         
+         \PY{n}{solve}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppress\PYZus{}warnings}\PY{o}{=}\PY{k+kc}{true}\PY{p}{)}
+         
+         \PY{n+nd}{@show} \PY{n}{getvalue}\PY{p}{(}\PY{n}{objExpr}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+getvalue(objExpr) = 579.1339215717857
+getvalue(objExpr) = 577.4900375773768
+
+    \end{Verbatim}
+
+    Once we find a feasible solution, we can look for better ones just
+repeating the same procedure. If we do not change cutoff parameter
+\(\theta\), at every iteration, each added constraint dominates the
+previous one, so there is no need to handle the elimination of
+constraints from the model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{m} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{n}{solver}\PY{o}{=}\PY{n}{GLPKSolverMIP}\PY{p}{(}\PY{n}{tm\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{,} \PY{n}{msg\PYZus{}lev}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{m}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z} \PY{o}{=} \PY{n}{defineModel}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{nodes}\PY{p}{,} \PY{n}{suppliers}\PY{p}{,} \PY{n}{consumers}\PY{p}{,} \PY{n}{demand}\PY{p}{,} \PY{n}{edgeExists}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{} Initial optimisation:}
+        \PY{n}{solve}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppress\PYZus{}warnings}\PY{o}{=}\PY{k+kc}{true}\PY{p}{)}
+        
+        \PY{n+nd}{@show} \PY{n}{getobjectivevalue}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{} We want to keep track of the original objective function:}
+        \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{length}\PY{p}{(}\PY{n}{nodes}\PY{p}{)}
+        \PY{n+nd}{@expression}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{objExpr}\PY{p}{,} 
+            \PY{n}{sum}\PY{p}{(}\PY{n}{cost}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{t}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} \PY{n}{j} \PY{k+kp}{in} \PY{n}{nodes}\PY{p}{,} \PY{n}{s} \PY{k+kp}{in} \PY{n}{suppliers}\PY{p}{,} \PY{n}{t} \PY{k+kp}{in} \PY{n}{T} \PY{k}{if} \PY{n}{edgeExists}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{} Loop defining the iterations}
+        \PY{k}{for} \PY{n}{i} \PY{k+kp}{in} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{7}
+            
+            \PY{c}{\PYZsh{} Separating variables:}
+            \PY{n}{varZeros}\PY{p}{,} \PY{n}{varOnes} \PY{o}{=} \PY{n}{separateZerosOnes}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+        
+            \PY{c}{\PYZsh{} Redefining the objective function}
+            \PY{n+nd}{@objective}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{Min}\PY{p}{,} \PY{n}{sum}\PY{p}{(}\PY{n}{var} \PY{k}{for} \PY{n}{var} \PY{k+kp}{in} \PY{n}{varZeros}\PY{p}{)} \PY{o}{+} \PY{n}{sum}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{var} \PY{k}{for} \PY{n}{var} \PY{k+kp}{in} \PY{n}{varOnes}\PY{p}{)}\PY{p}{)}
+           
+            \PY{c}{\PYZsh{} Adding the Proximity Search constraint:}
+            \PY{n+nd}{@constraint}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{objExpr} \PY{o}{\PYZlt{}=} \PY{n}{getvalue}\PY{p}{(}\PY{n}{objExpr}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}
+        
+            \PY{n}{solve}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppress\PYZus{}warnings}\PY{o}{=}\PY{k+kc}{true}\PY{p}{)}
+        
+            \PY{c}{\PYZsh{} If we cannnot find a feasible solution, we stop!}
+            \PY{k}{if} \PY{n}{isnan}\PY{p}{(}\PY{n}{getobjectivevalue}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{)}
+                \PY{k}{break}
+            \PY{k}{end}
+        
+            \PY{c}{\PYZsh{} Getting value of the original objective function:}
+            \PY{n+nd}{@show} \PY{n}{i}\PY{p}{,} \PY{n}{getvalue}\PY{p}{(}\PY{n}{objExpr}\PY{p}{)}
+        \PY{k}{end}  
+        
+        \PY{c}{\PYZsh{} Remember that the objective function of the model is not the original one.}
+        \PY{n}{printSolution}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{suppliers}\PY{p}{,} \PY{n}{nodes}\PY{p}{,} \PY{n}{edgeExists}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+getobjectivevalue(m) = 579.1339215717855
+(i, getvalue(objExpr)) = (1, 577.4900375773768)
+(i, getvalue(objExpr)) = (2, 554.6787904849061)
+(i, getvalue(objExpr)) = (3, 547.7768699326865)
+(i, getvalue(objExpr)) = (4, 526.7302762448531)
+(i, getvalue(objExpr)) = (5, 520.9052411226269)
+(i, getvalue(objExpr)) = (6, 519.7419488161277)
+(i, getvalue(objExpr)) = (7, 513.952225256473)
+18.0
+1 1 13
+1 13 6
+1 6 7
+1 7 1
+2 2 13
+2 13 3
+2 3 5
+2 5 4
+2 4 9
+2 9 11
+2 11 8
+2 8 12
+2 12 10
+2 10 2
+
+
+    \end{Verbatim}
+
+    Let us see what this solution looks like
+
+So far, we are using \(\theta = 1\). Try other values of \(\theta\) and
+see how they affect the evolution of the objective function. Then,
+define rules for modyfing \(\theta\) dynamically.
+
+This Notebook is just an example of exploring some ideas from Local
+Branching and Proximity Search. For detailed information on both
+methods, including a computational performance analysis, the reader is
+referred to the original papers:
+
+\begin{itemize}
+\tightlist
+\item
+  Fischetti, Matteo, and Andrea Lodi. "Local branching." Mathematical
+  programming 98.1-3 (2003): 23-47.
+\item
+  Fischetti, Matteo, and Michele Monaci. "Proximity search for 0-1
+  mixed-integer convex programming." Journal of Heuristics 20.6 (2014):
+  709-731.
+\end{itemize}
+
+For more information on JuMP/Julia check the
+\href{http://jump.readthedocs.io/en/latest/}{official documentation}.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
